@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Learning Journey</title>
+    <meta property="og:title" content="Docker Learning Journey">
+    <meta property="og:description" content="From Zero to Hero: Master Container Technology">
+    <meta property="og:type" content="website">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2496ed;
+            --secondary: #0db7ed;
+            --dark: #0b4c6c;
+            --light: #f8f9fa;
+            --success: #28a745;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .learning-path {
+            display: flex;
+            overflow-x: auto;
+            padding: 20px 0;
+            margin: 30px 0;
+        }
+        
+        .module {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 10px;
+            min-width: 300px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .module:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .module-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .module-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 2rem;
+        }
+        
+        .module h3 {
+            color: var(--primary);
+            margin: 0;
+        }
+        
+        .module-content {
+            margin-bottom: 20px;
+        }
+        
+        .resources {
+            background-color: var(--light);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .resource-item:last-child {
+            border-bottom: none;
+        }
+        
+        .resource-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #1a7bbd;
+        }
+        
+        .visual-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .visual-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+        
+        .visual-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .visual-card-content {
+            padding: 20px;
+        }
+        
+        .progress-tracker {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success);
+            width: 0%;
+            transition: width 1s;
+        }
+        
+        .interactive-demo {
+            background: var(--dark);
+            color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .interactive-demo a {
+            color: #54b4d3;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        
+        .interactive-demo a:hover {
+            color: #7bc9e2;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #6c757d;
+        }
+        
+        /* Module content sections */
+        .module-detail {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            display: none; /* Hidden by default */
+        }
+        
+        .module-detail.active {
+            display: block; /* Show when active */
+        }
+        
+        .module-detail h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .lesson {
+            margin-bottom: 30px;
+            border-left: 4px solid var(--secondary);
+            padding-left: 20px;
+        }
+        
+        .lesson h3 {
+            margin-top: 0;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        /* Code blocks */
+        pre {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        code {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .visual-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .learning-path {
+                flex-direction: column;
+            }
+            
+            .module {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Docker Learning Journey</h1>
+            <p class="subtitle">From Zero to Hero: Master Container Technology</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="progress-tracker">
+            <h2>Your Learning Progress</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <p>Track your journey through the world of Docker</p>
+        </div>
+        
+        <h2>Learning Path</h2>
+        <div class="learning-path">
+            <!-- Module 1 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <h3>Module 1: Docker Basics</h3>
+                </div>
+                <div class="module-content">
+                    <p>Introduction to containers, Docker architecture, and core concepts</p>
+                    <div class="resources">
+                        <h4>Learning Resources</h4>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <a href="https://www.youtube.com/watch?v=gAkwW2tuIqE" target="_blank">Docker in 7 Minutes</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <a href="https://docs.docker.com/get-started/overview/" target="_blank">Docker Overview</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn module-btn" data-module="module1">Start Learning</button>
+            </div>
+            
+            <!-- Module 2 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-icon">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3>Module 2: Docker CLI</h3>
+                </div>
+                <div class="module-content">
+                    <p>Essential Docker commands, managing containers, and images</p>
+                    <div class="resources">
+                        <h4>Learning Resources</h4>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <a href="https://docs.docker.com/engine/reference/commandline/cli/" target="_blank">Docker CLI Reference</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <a href="https://www.youtube.com/watch?v=WcQ3-M4-jik" target="_blank">Docker CLI Tutorial</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn module-btn" data-module="module2">Learn Commands</button>
+            </div>
+            
+            <!-- Module 3 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <h3>Module 3: Dockerfiles</h3>
+                </div>
+                <div class="module-content">
+                    <p>Creating custom images with Dockerfiles and best practices</p>
+                    <div class="resources">
+                        <h4>Learning Resources</h4>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <a href="https://docs.docker.com/engine/reference/builder/" target="_blank">Dockerfile Reference</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <a href="https://github.com/docker-library/official-images" target="_blank">Official Docker Images</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn module-btn" data-module="module3">Build Images</button>
+            </div>
+            
+            <!-- Module 4 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Module 4: Docker Networking</h3>
+                </div>
+                <div class="module-content">
+                    <p>Container networking, exposing ports, and communication between containers</p>
+                    <div class="resources">
+                        <h4>Learning Resources</h4>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <a href="https://docs.docker.com/network/" target="_blank">Docker Networking Guide</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <a href="https://www.youtube.com/watch?v=bKFMS5C4CG0" target="_blank">Docker Network Tutorial</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn module-btn" data-module="module4">Connect Containers</button>
+            </div>
+            
+            <!-- Module 5 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Module 5: Docker Compose</h3>
+                </div>
+                <div class="module-content">
+                    <p>Multi-container applications with Docker Compose</p>
+                    <div class="resources">
+                        <h4>Learning Resources</h4>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <a href="https://docs.docker.com/compose/" target="_blank">Docker Compose Documentation</a>
+                        </div>
+                        <div class="resource-item">
+                            <div class="resource-icon">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <a href="https://www.youtube.com/watch?v=Qw9zlE3t8Ko" target="_blank">Docker Compose Tutorial</a>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn module-btn" data-module="module5">Orchestrate Apps</button>
+            </div>
+        </div>
+        
+        <!-- Module Content Sections -->
+        <div id="module1" class="module-detail">
+            <h2>Module 1: Docker Basics</h2>
+            
+            <div class="lesson">
+                <h3>Lesson 1: What are Containers?</h3>
+                <p>Containers are lightweight, standalone, executable software packages that include everything needed to run a piece of software: code, runtime, system tools, libraries, and settings.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-box fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Container vs VM</h3>
+                            <p>Unlike virtual machines, containers share the host system's kernel but provide isolated processes and filesystems.</p>
+                            <ul>
+                                <li><strong>Containers:</strong> Share OS kernel, lightweight, fast startup</li>
+                                <li><strong>VMs:</strong> Include entire OS, more isolated, resource-intensive</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <iframe width="100%" height="180" src="https://www.youtube.com/embed/0qotVMX-J5s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="visual-card-content">
+                            <h3>Containers Explained</h3>
+                            <p>A visual explanation of container technology</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 2: Docker Architecture</h3>
+                <p>Docker uses a client-server architecture with several key components working together.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-sitemap fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Docker Components</h3>
+                            <ul>
+                                <li><strong>Docker Client:</strong> Command-line interface</li>
+                                <li><strong>Docker Daemon:</strong> Background service that manages containers</li>
+                                <li><strong>Docker Registry:</strong> Stores Docker images (e.g., Docker Hub)</li>
+                                <li><strong>Docker Objects:</strong> Images, containers, networks, volumes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <iframe width="100%" height="180" src="https://www.youtube.com/embed/rOTqprHv1YE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="visual-card-content">
+                            <h3>Docker Architecture Explained</h3>
+                            <p>Understanding how Docker components work together</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 3: Installing Docker</h3>
+                <p>Get Docker up and running on your system with these simple steps.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-download fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Installation Options</h3>
+                            <ul>
+                                <li><strong>Docker Desktop:</strong> For Windows and Mac</li>
+                                <li><strong>Docker Engine:</strong> For Linux systems</li>
+                                <li><strong>Docker Toolbox:</strong> For older systems</li>
+                            </ul>
+                            <a href="https://docs.docker.com/get-docker/" target="_blank" class="btn">Download Docker</a>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-check-circle fa-5x" style="color: var(--success);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Verify Installation</h3>
+                            <p>After installing, verify Docker is working correctly:</p>
+                            <pre><code>docker --version
+docker run hello-world</code></pre>
+                            <p>If successful, you'll see the Docker version and a welcome message from the hello-world container.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="module2" class="module-detail">
+            <h2>Module 2: Docker CLI</h2>
+            
+            <div class="lesson">
+                <h3>Lesson 1: Essential Docker Commands</h3>
+                <p>Learn the most important Docker commands to manage containers and images.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-terminal fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Basic Commands</h3>
+                            <pre><code># List containers
+docker ps
+docker ps -a  # Include stopped containers
+
+# Run a container
+docker run nginx
+
+# Stop a container
+docker stop container_id
+
+# Remove a container
+docker rm container_id
+
+# List images
+docker images</code></pre>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <iframe width="100%" height="180" src="https://www.youtube.com/embed/xGn7cFR3ARU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="visual-card-content">
+                            <h3>Docker CLI Basics</h3>
+                            <p>Visual guide to essential Docker commands</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 2: Managing Containers</h3>
+                <p>Learn how to work with running containers and control their lifecycle.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-cogs fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Container Lifecycle</h3>
+                            <pre><code># Run container in background
+docker run -d nginx
+
+# Run with a name
+docker run --name my-nginx nginx
+
+# Run with port mapping
+docker run -p 8080:80 nginx
+
+# Execute command in container
+docker exec -it container_id bash
+
+# View container logs
+docker logs container_id</code></pre>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-exchange-alt fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Common Docker Run Flags</h3>
+                            <ul>
+                                <li><code>-d</code>: Run in detached mode (background)</li>
+                                <li><code>-p</code>: Map host port to container port</li>
+                                <li><code>-v</code>: Mount a volume</li>
+                                <li><code>-e</code>: Set environment variables</li>
+                                <li><code>--name</code>: Assign a name to the container</li>
+                                <li><code>--network</code>: Connect to a network</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 3: Working with Images</h3>
+                <p>Learn how to find, pull, and manage Docker images.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-cloud-download-alt fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Image Commands</h3>
+                            <pre><code># Pull an image
+docker pull ubuntu:20.04
+
+# Search for images
+docker search mysql
+
+# Remove an image
+docker rmi image_id
+
+# Build an image from Dockerfile
+docker build -t my-app:1.0 .</code></pre>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-tags fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Image Tags and Versions</h3>
+                            <p>Docker images use tags to identify versions:</p>
+                            <ul>
+                                <li><code>nginx:latest</code> - Latest version</li>
+                                <li><code>ubuntu:20.04</code> - Specific version</li>
+                                <li><code>mysql:8.0</code> - Major version</li>
+                            </ul>
+                            <p>Always specify a version tag for production use to ensure consistency.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="module3" class="module-detail">
+            <h2>Module 3: Dockerfiles</h2>
+            
+            <div class="lesson">
+                <h3>Lesson 1: Dockerfile Basics</h3>
+                <p>Learn how to create Dockerfiles to build custom images for your applications.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-file-code fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Dockerfile Structure</h3>
+                            <pre><code># Simple Dockerfile example
+FROM node:14
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]</code></pre>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-list-ol fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Common Dockerfile Instructions</h3>
+                            <ul>
+                                <li><code>FROM</code>: Base image to build from</li>
+                                <li><code>WORKDIR</code>: Set working directory</li>
+                                <li><code>COPY/ADD</code>: Copy files into image</li>
+                                <li><code>RUN</code>: Execute commands during build</li>
+                                <li><code>EXPOSE</code>: Document container ports</li>
+                                <li><code>ENV</code>: Set environment variables</li>
+                                <li><code>CMD/ENTRYPOINT</code>: Default command to run</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 2: Building Images</h3>
+                <p>Learn how to build Docker images from your Dockerfiles and understand the build process.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <iframe width="100%" height="180" src="https://www.youtube.com/embed/hnxI-K10auY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="visual-card-content">
+                            <h3>Building Docker Images</h3>
+                            <p>Step-by-step guide to building custom images</p>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-layer-group fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Build Commands</h3>
+                            <pre><code># Basic build
+docker build -t my-app:1.0 .
+
+# Build with build args
+docker build --build-arg ENV=prod -t my-app:prod .
+
+# Build from specific Dockerfile
+docker build -f Dockerfile.dev -t my-app:dev .
+
+# View build history
+docker history my-app:1.0</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 3: Multi-stage Builds</h3>
+                <p>Learn how to create efficient, smaller Docker images using multi-stage builds.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-compress-arrows-alt fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Multi-stage Build Example</h3>
+                            <pre><code># Build stage
+FROM node:14 AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Production stage
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</code></pre>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-lightbulb fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Benefits of Multi-stage Builds</h3>
+                            <ul>
+                                <li>Smaller final image size</li>
+                                <li>Separation of build and runtime environments</li>
+                                <li>No build tools in production image</li>
+                                <li>Improved security with smaller attack surface</li>
+                                <li>Faster deployments with smaller images</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="module4" class="module-detail">
+            <h2>Module 4: Docker Networking</h2>
+            
+            <div class="lesson">
+                <h3>Lesson 1: Network Basics</h3>
+                <p>Understand Docker's networking model and how containers communicate.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-network-wired fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Docker Network Types</h3>
+                            <ul>
+                                <li><strong>bridge:</strong> Default network for containers</li>
+                                <li><strong>host:</strong> Container shares host's network</li>
+                                <li><strong>none:</strong> No networking</li>
+                                <li><strong>overlay:</strong> Multi-host networking</li>
+                                <li><strong>macvlan:</strong> Assign MAC address to container</li>
+                                <li><strong>custom:</strong> User-defined networks</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <iframe width="100%" height="180" src="https://www.youtube.com/embed/bKFMS5C4CG0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="visual-card-content">
+                            <h3>Docker Networking Explained</h3>
+                            <p>Visual guide to container networking</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 2: Managing Networks</h3>
+                <p>Learn how to create, inspect, and manage Docker networks.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-project-diagram fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Network Commands</h3>
+                            <pre><code># List networks
+docker network ls
+
+# Create a network
+docker network create my-network
+
+# Inspect a network
+docker network inspect my-network
+
+# Connect container to network
+docker network connect my-network container_id
+
+# Disconnect container
+docker network disconnect my-network container_id
+
+# Remove a network
+docker network rm my-network</code></pre>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-plug fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Container Communication</h3>
+                            <p>Containers on the same network can communicate using:</p>
+                            <ul>
+                                <li>Container names as hostnames</li>
+                                <li>Internal IP addresses</li>
+                                <li>Exposed ports</li>
+                            </ul>
+                            <pre><code># Example: Run two containers on same network
+docker network create app-net
+docker run -d --name db --network app-net mysql
+docker run -d --name web --network app-net nginx</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 3: Port Mapping</h3>
+                <p>Learn how to expose container ports to the host system and the outside world.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-random fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Port Mapping Basics</h3>
+                            <pre><code># Map container port 80 to host port 8080
+docker run -p 8080:80 nginx
+
+# Map multiple ports
+docker run -p 8080:80 -p 443:443 nginx
+
+# Map to random host port
+docker run -P nginx
+
+# Map to specific interface
+docker run -p 127.0.0.1:8080:80 nginx</code></pre>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-globe fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Accessing Mapped Ports</h3>
+                            <p>After mapping ports, you can access the container:</p>
+                            <ul>
+                                <li>From host: <code>http://localhost:8080</code></li>
+                                <li>From network: <code>http://host-ip:8080</code></li>
+                            </ul>
+                            <p>Check mapped ports with:</p>
+                            <pre><code>docker port container_id</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="module5" class="module-detail">
+            <h2>Module 5: Docker Compose</h2>
+            
+            <div class="lesson">
+                <h3>Lesson 1: Compose Basics</h3>
+                <p>Learn how to define and run multi-container applications with Docker Compose.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-layer-group fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>What is Docker Compose?</h3>
+                            <p>Docker Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application's services, networks, and volumes.</p>
+                            <p>Benefits include:</p>
+                            <ul>
+                                <li>Single command to start all services</li>
+                                <li>Environment consistency</li>
+                                <li>Simplified configuration</li>
+                                <li>Automatic networking between services</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <iframe width="100%" height="180" src="https://www.youtube.com/embed/Qw9zlE3t8Ko" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <div class="visual-card-content">
+                            <h3>Docker Compose Introduction</h3>
+                            <p>Visual guide to Docker Compose basics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 2: docker-compose.yml</h3>
+                <p>Learn how to create a docker-compose.yml file to define your application stack.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-file-code fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Sample docker-compose.yml</h3>
+                            <pre><code>version: '3'
+
+services:
+  web:
+    build: ./web
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/app
+      
+  db:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=app
+
+volumes:
+  postgres_data:</code></pre>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-puzzle-piece fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Key Compose Elements</h3>
+                            <ul>
+                                <li><strong>version:</strong> Compose file format version</li>
+                                <li><strong>services:</strong> Container definitions</li>
+                                <li><strong>volumes:</strong> Persistent data storage</li>
+                                <li><strong>networks:</strong> Custom networks</li>
+                                <li><strong>depends_on:</strong> Service dependencies</li>
+                                <li><strong>environment:</strong> Environment variables</li>
+                                <li><strong>ports:</strong> Port mappings</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lesson">
+                <h3>Lesson 3: Compose Commands</h3>
+                <p>Learn essential Docker Compose commands to manage your application stack.</p>
+                <div class="visual-section">
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-terminal fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Basic Compose Commands</h3>
+                            <pre><code># Start services
+docker-compose up
+
+# Start in detached mode
+docker-compose up -d
+
+# Stop services
+docker-compose down
+
+# Stop and remove volumes
+docker-compose down -v
+
+# View logs
+docker-compose logs
+
+# Build or rebuild services
+docker-compose build
+
+# List containers
+docker-compose ps</code></pre>
+                        </div>
+                    </div>
+                    <div class="visual-card">
+                        <div style="text-align: center; padding: 20px;">
+                            <i class="fas fa-cogs fa-5x" style="color: var(--primary);"></i>
+                        </div>
+                        <div class="visual-card-content">
+                            <h3>Advanced Compose Usage</h3>
+                            <pre><code># Scale specific services
+docker-compose up -d --scale web=3
+
+# Run a command in a service
+docker-compose exec web npm test
+
+# View resource usage
+docker-compose top
+
+# Use a different compose file
+docker-compose -f docker-compose.prod.yml up
+
+# Restart a single service
+docker-compose restart web</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Visual Learning Center</h2>
+        <div class="visual-section">
+            <div class="visual-card">
+                <div style="text-align: center; padding: 20px;">
+                    <i class="fab fa-docker fa-5x" style="color: var(--primary);"></i>
+                </div>
+                <div class="visual-card-content">
+                    <h3>Docker Architecture</h3>
+                    <p>Visual breakdown of Docker components and how they work together</p>
+                    <button class="btn module-btn" data-module="module1">Explore Architecture</button>
+                </div>
+            </div>
+            
+            <div class="visual-card">
+                <div style="text-align: center; padding: 20px;">
+                    <i class="fas fa-file-code fa-5x" style="color: var(--primary);"></i>
+                </div>
+                <div class="visual-card-content">
+                    <h3>Dockerfile Creation</h3>
+                    <p>Learn how to create efficient Dockerfiles for your applications</p>
+                    <button class="btn module-btn" data-module="module3">Learn More</button>
+                </div>
+            </div>
+            
+            <div class="visual-card">
+                <div style="text-align: center; padding: 20px;">
+                    <i class="fas fa-layer-group fa-5x" style="color: var(--primary);"></i>
+                </div>
+                <div class="visual-card-content">
+                    <h3>Multi-container Apps</h3>
+                    <p>How to orchestrate multiple containers with Docker Compose</p>
+                    <button class="btn module-btn" data-module="module5">Understand Compose</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="interactive-demo">
+            <h2>Interactive Learning</h2>
+            <p>Practice Docker commands and see real-time results with these interactive tutorials</p>
+            <div class="resources">
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <a href="https://labs.play-with-docker.com/" target="_blank">Play with Docker</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <a href="https://www.katacoda.com/courses/docker" target="_blank">Docker Katacoda Scenarios</a>
+                </div>
+                <div class="resource-item">
+                    <div class="resource-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <a href="https://docs.docker.com/get-started/02_our_app/" target="_blank">Docker Official Tutorial</a>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Video Learning Path</h2>
+        <div class="visual-section">
+            <div class="visual-card">
+                <iframe width="100%" height="180" src="https://www.youtube.com/embed/3c-iBn73dDE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="visual-card-content">
+                    <h3>Docker Tutorial for Beginners</h3>
+                    <p>Complete introduction to Docker fundamentals</p>
+                </div>
+            </div>
+            
+            <div class="visual-card">
+                <iframe width="100%" height="180" src="https://www.youtube.com/embed/pTFZFxd4hOI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="visual-card-content">
+                    <h3>Docker Crash Course</h3>
+                    <p>Quick and practical Docker introduction</p>
+                </div>
+            </div>
+            
+            <div class="visual-card">
+                <iframe width="100%" height="180" src="https://www.youtube.com/embed/Qw9zlE3t8Ko" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="visual-card-content">
+                    <h3>Docker Compose Tutorial</h3>
+                    <p>Learn how to manage multi-container applications</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <footer>
+        <div class="container">
+            <p>Docker Learning Portal - Created to help you master container technology</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Module navigation
+        document.querySelectorAll('.module-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Get the module ID from the button's data attribute
+                const moduleId = this.getAttribute('data-module');
+                
+                // Hide all module details
+                document.querySelectorAll('.module-detail').forEach(detail => {
+                    detail.classList.remove('active');
+                });
+                
+                // Show the selected module
+                document.getElementById(moduleId).classList.add('active');
+                
+                // Scroll to the module content
+                document.getElementById(moduleId).scrollIntoView({ behavior: 'smooth' });
+                
+                // Mark as completed for progress tracking
+                if (!this.classList.contains('completed')) {
+                    this.classList.add('completed');
+                    updateModuleProgress(moduleId);
+                }
+            });
+        });
+        
+        // Progress tracking
+        let completedModules = new Set();
+        const totalModules = 5;
+        
+        function updateModuleProgress(moduleId) {
+            // Extract the module number
+            const moduleNumber = moduleId.replace('module', '');
+            completedModules.add(moduleNumber);
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            const progressPercentage = (completedModules.size / totalModules) * 100;
+            document.getElementById('progressBar').style.width = progressPercentage + '%';
+        }
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+</html>
